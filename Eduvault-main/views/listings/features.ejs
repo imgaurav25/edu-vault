@@ -1,0 +1,219 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+  .features-hero {
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    color: white;
+    padding: 70px 20px;
+    border-radius: 0 0 40px 40px;
+  }
+
+  .feature-card {
+    border: none;
+    border-radius: 18px;
+    transition: all 0.25s ease;
+    background: #ffffff;
+    height: 100%;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+  }
+
+  .feature-icon {
+    font-size: 42px;
+    margin-bottom: 15px;
+    color: #4e73df;
+  }
+
+  .section-title {
+    font-weight: 800;
+    color: #2e2e2e;
+  }
+
+  .section-subtitle {
+    color: #6c757d;
+    max-width: 700px;
+    margin: auto;
+  }
+
+  .badge-soft {
+    background: rgba(78,115,223,0.1);
+    color: #4e73df;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+</style>
+
+<!-- HERO SECTION -->
+<section class="features-hero text-center">
+  <h1 class="fw-bold display-6">Next-Generation ERP for Academic Excellence</h1>
+  <p class="mt-3 fs-5">
+    A complete, AI-powered academic management platform designed for scalability,
+    automation, and performance insights.
+  </p>
+</section>
+
+<!-- FEATURES GRID -->
+<section class="container my-5">
+  <div class="text-center mb-5">
+    <span class="badge-soft">Core Modules</span>
+    <h2 class="section-title mt-3">Powerful Features That Run Your Campus</h2>
+    <p class="section-subtitle mt-2">
+      Designed for engineering institutions to manage academics, administration,
+      finance, and analytics seamlessly.
+    </p>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- STUDENT MANAGEMENT -->
+    <div class="col-md-4">
+      <div class="card feature-card p-4 text-center">
+        <div class="feature-icon">🎓</div>
+        <h5 class="fw-bold">Student Management</h5>
+        <p>
+          Centralized student database with profiles, academic history,
+          documents, and performance tracking.
+        </p>
+      </div>
+    </div>
+
+    <!-- ATTENDANCE -->
+    <div class="col-md-4">
+      <div class="card feature-card p-4 text-center">
+        <div class="feature-icon">📋</div>
+        <h5 class="fw-bold">Attendance Management</h5>
+        <p>
+          Subject-wise and monthly attendance tracking with automated
+          percentage calculation and reports.
+        </p>
+      </div>
+    </div>
+
+    <!-- FEES -->
+    <div class="col-md-4">
+      <div class="card feature-card p-4 text-center">
+        <div class="feature-icon">💳</div>
+        <h5 class="fw-bold">Fee Management</h5>
+        <p>
+          Online fee collection, payment history, due tracking,
+          receipts, and financial transparency.
+        </p>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="col-md-4">
+      <div class="card feature-card p-4 text-center">
+        <div class="feature-icon">📊</div>
+        <h5 class="fw-bold">Exam & Result System</h5>
+        <p>
+          Result publication, subject-wise marks, CGPA calculation,
+          rank generation, and analytics.
+        </p>
+      </div>
+    </div>
+
+    <!-- AI PERFORMANCE -->
+    <div class="col-md-4">
+      <div class="card feature-card p-4 text-center">
+        <div class="feature-icon">🤖</div>
+        <h5 class="fw-bold">AI-Based Performance Analysis</h5>
+        <p>
+          AI-driven insights to analyze attendance, marks, and trends
+          to predict student performance.
+        </p>
+      </div>
+    </div>
+
+    <!-- HOSTEL -->
+    <div class="col-md-4">
+      <div class="card feature-card p-4 text-center">
+        <div class="feature-icon">🏠</div>
+        <h5 class="fw-bold">Hostel Management</h5>
+        <p>
+          Hostel allocation, room details, attendance, and
+          fee tracking for residential students.
+        </p>
+      </div>
+    </div>
+
+    <!-- LIBRARY -->
+    <div class="col-md-4">
+      <div class="card feature-card p-4 text-center">
+        <div class="feature-icon">📚</div>
+        <h5 class="fw-bold">Library Management</h5>
+        <p>
+          Book inventory, issue/return system, fines,
+          and digital library access.
+        </p>
+      </div>
+    </div>
+
+    <!-- REPORTS -->
+    <div class="col-md-4">
+      <div class="card feature-card p-4 text-center">
+        <div class="feature-icon">📅</div>
+        <h5 class="fw-bold">Monthly Academic Reports</h5>
+        <p>
+          End-of-month attendance, performance, and progress
+          reports for students and faculty.
+        </p>
+      </div>
+    </div>
+
+    <!-- ADMIN CONTROL -->
+    <div class="col-md-4">
+      <div class="card feature-card p-4 text-center">
+        <div class="feature-icon">🛡️</div>
+        <h5 class="fw-bold">Admin & Security Control</h5>
+        <p>
+          Role-based access, secure authentication,
+          and complete administrative control.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOT NOTE -->
+<section class="text-center py-4 bg-light">
+  <p class="mb-0 text-muted">
+    Built for scalability • Secure • Optimized for Engineering Institutions
+  </p>
+</section>
+
+
+
+
+<!-- for dark and light theme  -->
+ <script>
+function toggleTheme() {
+  const root = document.documentElement;
+  const btn = document.getElementById("themeToggleBtn");
+
+  const isLight = root.dataset.theme === "light";
+  root.dataset.theme = isLight ? "dark" : "light";
+
+  btn.textContent = isLight ? "🌙" : "☀️";
+  localStorage.setItem("theme", root.dataset.theme);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const root = document.documentElement;
+  const btn = document.getElementById("themeToggleBtn");
+
+  const savedTheme = localStorage.getItem("theme") || "light";
+  root.dataset.theme = savedTheme;
+
+  if (btn) {
+    btn.textContent = savedTheme === "light" ? "☀️" : "🌙";
+  }
+});
+</script>
+

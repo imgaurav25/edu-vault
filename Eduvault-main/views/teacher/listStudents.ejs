@@ -1,0 +1,187 @@
+<% layout('teacher/layouts/teacherBoiler') %>
+
+<style>
+  /* ===== PAGE WRAPPER ===== */
+  .page-wrap{
+    max-width:1200px;
+    margin:auto;
+  }
+
+  /* ===== HEADER CARD ===== */
+  .page-header{
+    background:linear-gradient(135deg,#4e73df,#1cc88a);
+    padding:28px 32px;
+    border-radius:20px;
+    color:#fff;
+    margin-bottom:28px;
+    box-shadow:0 18px 40px rgba(0,0,0,.18);
+  }
+
+  .page-header h2{
+    font-weight:900;
+    margin:0;
+  }
+
+  .page-header p{
+    opacity:.9;
+    margin-top:6px;
+  }
+
+  /* ===== TABLE CARD ===== */
+  .table-card{
+    background:#fff;
+    border-radius:20px;
+    padding:24px;
+    box-shadow:0 18px 45px rgba(0,0,0,.12);
+  }
+
+  /* ===== TABLE ===== */
+  .table{
+    margin-bottom:0;
+  }
+
+  .table thead th{
+    background:#1e40af !important;
+    color:#fff !important;
+    font-weight:700;
+    border:none;
+    text-transform:uppercase;
+    font-size:13px;
+    letter-spacing:.5px;
+  }
+
+  .table tbody tr{
+    transition:.25s ease;
+  }
+
+  .table tbody tr:hover{
+    background:#f1f5ff;
+    transform:scale(1.01);
+  }
+
+  .table td{
+    vertical-align:middle;
+    font-size:14.5px;
+    color:#374151;
+  }
+
+  /* ===== BADGES ===== */
+  .badge-dept{
+    background:#e0e7ff;
+    color:#1e40af;
+    font-weight:600;
+    border-radius:12px;
+    padding:5px 10px;
+  }
+
+  .badge-section{
+    background:#ecfeff;
+    color:#0369a1;
+    font-weight:600;
+    border-radius:12px;
+    padding:5px 10px;
+  }
+
+  /* ===== ACTION BUTTON ===== */
+  .btn-delete{
+    border-radius:12px;
+    padding:6px 12px;
+    font-size:13px;
+    transition:.2s ease;
+  }
+
+  .btn-delete:hover{
+    transform:scale(1.05);
+  }
+
+  /* ===== EMPTY STATE ===== */
+  .empty-box{
+    text-align:center;
+    padding:60px 20px;
+    color:#6b7280;
+  }
+
+  .empty-box i{
+    font-size:48px;
+    margin-bottom:10px;
+    color:#9ca3af;
+  }
+</style>
+
+<div class="page-wrap">
+
+  <!-- ===== HEADER ===== -->
+  <div class="page-header">
+    <h2><i class="bi bi-people-fill"></i> All Students</h2>
+    <p>View and manage registered student records</p>
+  </div>
+
+  <!-- ===== TABLE ===== -->
+  <div class="table-card">
+
+    <% if(students.length === 0){ %>
+      <div class="empty-box">
+        <i class="bi bi-inbox"></i>
+        <h5>No Students Found</h5>
+        <p>Students will appear here once added.</p>
+      </div>
+    <% } else { %>
+
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Roll</th>
+            <th>Department</th>
+            <th>Section</th>
+            <th>Semester</th>
+            <th>Phone</th>
+            <th>Year</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% students.forEach(student => { %>
+            <tr>
+              <td class="fw-semibold"><%= student.name %></td>
+              <td><%= student.roll %></td>
+
+              <td>
+                <span class="badge-dept">
+                  <%= student.department %>
+                </span>
+              </td>
+
+              <td>
+                <span class="badge-section">
+                  <%= student.section %>
+                </span>
+              </td>
+
+              <td><%= student.semester %></td>
+              <td><%= student.phone || "—" %></td>
+              <td><%= student.year %></td>
+
+              <td class="text-center">
+                <form
+                  action="/admin/teacher/delete/<%= student._id %>"
+                  method="POST"
+                  onsubmit="return confirm('Delete this student?');"
+                >
+                  <button class="btn btn-danger btn-sm btn-delete">
+                    <i class="bi bi-trash-fill"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <% } %>
+
+  </div>
+</div>

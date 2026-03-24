@@ -1,0 +1,227 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+  /* ===== HERO ===== */
+  .faq-hero {
+    min-height: 60vh;
+    background:
+      radial-gradient(circle at top right, rgba(78,115,223,.25), transparent 40%),
+      radial-gradient(circle at bottom left, rgba(28,200,138,.25), transparent 45%),
+      linear-gradient(135deg, #0b214c, #061329);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding: 40px 20px;
+  }
+
+  .faq-hero h1 {
+    font-size: 52px;
+    font-weight: 900;
+    margin-bottom: 12px;
+  }
+
+  .faq-hero p {
+    max-width: 760px;
+    font-size: 18px;
+    opacity: .9;
+  }
+
+  /* ===== FAQ CONTAINER ===== */
+  .faq-box {
+    background: #fff;
+    border-radius: 26px;
+    padding: 50px 40px;
+    box-shadow: 0 40px 100px rgba(0,0,0,.12);
+    margin-top: -120px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ===== FAQ ITEM ===== */
+  .faq-item {
+    border-bottom: 1px solid #e9ecef;
+    padding: 22px 0;
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 800;
+    color: #0b214c;
+    font-size: 18px;
+  }
+
+  .faq-question span {
+    font-size: 26px;
+    color: #4e73df;
+    transition: .3s;
+  }
+
+  .faq-answer {
+    margin-top: 12px;
+    font-size: 16px;
+    color: #495057;
+    line-height: 1.8;
+    display: none;
+  }
+
+  /* ===== ASK SECTION ===== */
+  .ask-box {
+    margin-top: 70px;
+    padding: 50px 30px;
+    border-radius: 26px;
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 35px 90px rgba(0,0,0,.3);
+  }
+
+  .ask-box h3 {
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+
+  .ask-box p {
+    opacity: .95;
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .ask-box a {
+    background: #fff;
+    color: #0b214c;
+    padding: 12px 26px;
+    border-radius: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: .3s;
+  }
+
+  .ask-box a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0,0,0,.2);
+  }
+
+  /* ===== FOOT ===== */
+  .faq-foot {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 14px;
+    color: #6c757d;
+  }
+</style>
+
+<!-- ===== HERO ===== -->
+<section class="faq-hero">
+  <div>
+    <h1>Frequently Asked Questions</h1>
+    <p>
+      Honest answers to common doubts — explained simply,
+      clearly, and transparently.
+    </p>
+  </div>
+</section>
+
+<!-- ===== FAQ CONTENT ===== -->
+<div class="container">
+
+  <div class="faq-box">
+
+    <% const faqs = [
+      {
+        q: "What exactly is EduVault ERP?",
+        a: "EduVault is a modern education management platform that brings academics, administration, fees, communication, and analytics into one secure and easy-to-use system."
+      },
+      {
+        q: "Who can use EduVault?",
+        a: "EduVault is designed for colleges, schools, universities, faculty members, students, and parents — each with their own dedicated dashboard."
+      },
+      {
+        q: "How does EduVault help institutions?",
+        a: "It reduces paperwork, automates daily operations, improves transparency, saves time, and provides real-time insights for better decision-making."
+      },
+      {
+        q: "Is EduVault secure?",
+        a: "Yes. EduVault uses role-based access, encrypted data storage, secure authentication, and regular backups to keep institutional data safe."
+      },
+      {
+        q: "Can EduVault be customized?",
+        a: "Absolutely. EduVault is modular and can be customized based on institutional needs, departments, workflows, and policies."
+      }
+    ] %>
+
+    <% faqs.forEach((faq, index) => { %>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(<%= index %>)">
+          <div><%= faq.q %></div>
+          <span id="icon<%= index %>">+</span>
+        </div>
+        <div class="faq-answer" id="answer<%= index %>">
+          <%= faq.a %>
+        </div>
+      </div>
+    <% }) %>
+
+  </div>
+
+  <!-- ===== ASK USER ===== -->
+  <div class="ask-box">
+    <h3>Still have a question?</h3>
+    <p>
+      No problem. Every question matters.  
+      We’re here to help you understand EduVault clearly.
+    </p>
+    <a href="/contact">Ask Your Question</a>
+  </div>
+
+  <div class="faq-foot">
+    © <%= new Date().getFullYear() %> EduVault ERP · Clear answers · Honest technology
+  </div>
+
+</div>
+
+<script>
+  function toggleFAQ(i) {
+    const ans = document.getElementById(`answer${i}`);
+    const icon = document.getElementById(`icon${i}`);
+    const open = ans.style.display === "block";
+    ans.style.display = open ? "none" : "block";
+    icon.textContent = open ? "+" : "–";
+  }
+</script>
+
+
+
+
+
+<!-- for dark and light themes -->
+ <script>
+function toggleTheme() {
+  const root = document.documentElement;
+  const btn = document.getElementById("themeToggleBtn");
+
+  const isLight = root.dataset.theme === "light";
+  root.dataset.theme = isLight ? "dark" : "light";
+
+  btn.textContent = isLight ? "🌙" : "☀️";
+  localStorage.setItem("theme", root.dataset.theme);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const root = document.documentElement;
+  const btn = document.getElementById("themeToggleBtn");
+
+  const savedTheme = localStorage.getItem("theme") || "light";
+  root.dataset.theme = savedTheme;
+
+  if (btn) {
+    btn.textContent = savedTheme === "light" ? "☀️" : "🌙";
+  }
+});
+</script>
+
+

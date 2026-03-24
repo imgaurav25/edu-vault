@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title || "Teacher Panel" %></title>
+
+  <!-- Bootstrap -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ===== GLOBAL FIX ===== */
+    html{
+      scroll-padding-top:90px; /* prevents jump */
+    }
+
+    body{
+      background:#f4f7fc;
+      font-family:Inter,system-ui;
+      overflow-x:hidden;
+      margin:0;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar{
+      width:260px;
+      height:100vh;
+      position:fixed;
+      top:0;
+      left:0;
+      background:#1e1e2d;
+      color:#fff;
+      z-index:1050;
+    }
+
+    .sidebar h4{
+      text-align:center;
+      padding:20px 0;
+      font-weight:800;
+      border-bottom:1px solid rgba(255,255,255,.1);
+    }
+
+    .sidebar a{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:14px 24px;
+      color:#cfd1d4;
+      text-decoration:none;
+      font-size:15px;
+      transition:.3s;
+    }
+
+    .sidebar a:hover{
+      background:#4e73df;
+      color:#fff;
+    }
+
+    .back-admin{
+      background:#0d6efd;
+      color:#fff !important;
+    }
+
+    .logout{
+      background:#dc3545;
+      color:#fff !important;
+      margin-top:20px;
+    }
+
+    /* ===== TOPBAR ===== */
+    .topbar{
+      height:70px;                 /* 🔥 FIX */
+      margin-left:260px;
+      background:#fff;
+      padding:14px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow:0 6px 20px rgba(0,0,0,.08);
+      position:sticky;
+      top:0;
+      z-index:1000;                /* 🔥 FIX */
+    }
+
+    /* ===== CONTENT ===== */
+    .content{
+      margin-left:260px;
+      padding:90px 30px 30px;      /* 🔥 FIX (topbar space) */
+      min-height:100vh;
+    }
+
+    /* ===== MOBILE ===== */
+    @media(max-width:768px){
+      .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+      }
+
+      .topbar,
+      .content{
+        margin-left:0;
+      }
+
+      .content{
+        padding:90px 15px 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<div class="sidebar">
+  <h4>
+    <i class="bi bi-person-workspace"></i> Teacher Panel
+  </h4>
+
+  <!-- BACK TO ADMIN -->
+  <a href="/admin/dashboard" class="back-admin">
+    <i class="bi bi-arrow-left-circle"></i> Back to Admin
+  </a>
+
+  <!-- LOGOUT -->
+  <a href="/login" class="logout">
+    <i class="bi bi-box-arrow-right"></i> Logout
+  </a>
+</div>
+
+<!-- ===== TOPBAR ===== -->
+<div class="topbar">
+  <h5 class="m-0"><%= title || "Teacher Panel" %></h5>
+  <span class="badge bg-primary">Faculty Access</span>
+</div>
+
+<!-- ===== CONTENT ===== -->
+<div class="content">
+  <%- body %>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

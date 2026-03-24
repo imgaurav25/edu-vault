@@ -1,0 +1,22 @@
+module.exports = [
+  "Mathematics-I",
+  "Mathematics-II",
+  "Physics",
+  "Chemistry",
+  "Engineering Mechanics",
+  "Basic Electrical Engineering",
+  "Basic Electronics Engineering",
+  "Environmental Science",
+  "Human Values",
+  "Programming in C",
+  "Data Structures & Algorithms",
+  "Object-Oriented Programming",
+  "Computer Organization & Architecture",
+  "Operating Systems",
+  "Database Management System",
+  "Computer Networks",
+  "Design & Analysis of Algorithms",
+  "Software Engineering",
+  "Web Technology",
+  "Artificial Intelligence"
+];

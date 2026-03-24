@@ -1,0 +1,164 @@
+<% layout('parent/layouts/parentBoiler') %>
+<% active = "results" %>
+<% title = "Academic Results" %>
+
+<style>
+  body{background:#f5f7fb;}
+
+  /* HEADER */
+  .page-header{
+    background:linear-gradient(135deg,#6f42c1,#36b9cc);
+    padding:26px;
+    border-radius:20px;
+    color:#fff;
+    margin-bottom:30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+
+  .page-header h3{
+    font-weight:900;
+    margin-bottom:6px;
+  }
+
+  .student-chip{
+    background:rgba(255,255,255,.2);
+    padding:10px 18px;
+    border-radius:30px;
+    font-weight:700;
+  }
+
+  /* SUMMARY */
+  .summary-card{
+    background:#fff;
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 12px 30px rgba(0,0,0,.1);
+    margin-bottom:30px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+  }
+
+  .summary-item{
+    text-align:center;
+  }
+
+  .summary-value{
+    font-size:32px;
+    font-weight:900;
+  }
+
+  .summary-label{
+    font-size:13px;
+    font-weight:700;
+    color:#6c757d;
+  }
+
+  .green{color:#1cc88a;}
+  .blue{color:#4e73df;}
+  .orange{color:#fd7e14;}
+
+  /* TABLE */
+  .result-card{
+    background:#fff;
+    border-radius:20px;
+    padding:22px;
+    box-shadow:0 12px 30px rgba(0,0,0,.1);
+  }
+
+  table th{
+    background:#f8f9fc;
+    font-weight:800;
+    font-size:14px;
+  }
+
+  table td{
+    font-weight:600;
+    vertical-align:middle;
+  }
+
+  .pass{color:#1cc88a;font-weight:800;}
+  .fail{color:#e74a3b;font-weight:800;}
+</style>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div>
+    <h3><i class="bi bi-journal-text"></i> Academic Results</h3>
+    <p class="mb-0 opacity-90">
+      Detailed performance of your child
+    </p>
+  </div>
+
+  <div class="student-chip">
+    <i class="bi bi-person-fill"></i>
+    <%= student.name %> · Roll <%= student.roll %>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary-card">
+
+  <div class="summary-item">
+    <div class="summary-value green"><%= avgMarks %></div>
+    <div class="summary-label">Average Marks</div>
+  </div>
+
+  <div class="summary-item">
+    <div class="summary-value blue">
+      <%= results.length %>
+    </div>
+    <div class="summary-label">Subjects</div>
+  </div>
+
+  <div class="summary-item">
+    <div class="summary-value orange">
+      <%= results.filter(r => r.marks >= 40).length %> /
+      <%= results.length %>
+    </div>
+    <div class="summary-label">Subjects Passed</div>
+  </div>
+
+</div>
+
+<!-- RESULTS TABLE -->
+<div class="result-card">
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Marks</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% if (results.length === 0) { %>
+        <tr>
+          <td colspan="3" class="text-center text-muted">
+            No results available yet.
+          </td>
+        </tr>
+      <% } %>
+
+      <% results.forEach(r => { %>
+        <tr>
+          <td><strong><%= r.subjectName %></strong></td>
+
+
+          <td><%= r.marks %></td>
+          <td>
+            <span class="<%= r.marks >= 40 ? 'pass' : 'fail' %>">
+              <%= r.marks >= 40 ? 'PASS' : 'FAIL' %>
+            </span>
+          </td>
+        </tr>
+      <% }) %>
+
+    </tbody>
+  </table>
+</div>

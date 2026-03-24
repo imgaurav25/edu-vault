@@ -1,0 +1,145 @@
+<% layout('teacher/layouts/teacherBoiler') %>
+<% active = "admin-notices" %>
+<% title = "Create Notice" %>
+
+<style>
+  body{background:#f4f7fc;}
+
+  .notice-wrapper{
+    max-width:950px;
+    margin:auto;
+  }
+
+  .notice-header{
+    background:linear-gradient(135deg,#4e73df,#1cc88a);
+    padding:28px;
+    border-radius:18px;
+    color:#fff;
+    margin-bottom:30px;
+  }
+
+  .notice-header h3{
+    font-weight:900;
+    margin-bottom:6px;
+  }
+
+  .notice-card{
+    background:#fff;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 12px 30px rgba(0,0,0,.1);
+  }
+
+  .form-label{
+    font-weight:700;
+    color:#495057;
+  }
+
+  .form-control,
+  .form-select{
+    border-radius:10px;
+    padding:12px;
+  }
+
+  .btn-publish{
+    background:#4e73df;
+    color:#fff;
+    border:none;
+    padding:12px 26px;
+    border-radius:10px;
+    font-weight:700;
+  }
+
+  .btn-publish:hover{
+    background:#2e59d9;
+  }
+
+  .note-box{
+    background:#f8f9fc;
+    padding:14px;
+    border-radius:10px;
+    font-size:14px;
+    color:#6c757d;
+  }
+</style>
+
+<div class="notice-wrapper">
+
+  <!-- HEADER -->
+  <div class="notice-header">
+    <h3><i class="bi bi-megaphone-fill"></i> Create Notice</h3>
+    <p class="mb-0 opacity-90">
+      Publish announcements for students instantly
+    </p>
+  </div>
+
+  <!-- FORM -->
+  <div class="notice-card">
+
+    <form action="/admin/teacher/notices/create" method="POST">
+
+      <!-- TITLE -->
+      <div class="mb-3">
+        <label class="form-label">Notice Title</label>
+        <input
+          type="text"
+          name="title"
+          class="form-control"
+          placeholder="Eg: Mid-Sem Exam Schedule Released"
+          required
+        />
+      </div>
+
+      <!-- PRIORITY + AUDIENCE -->
+      <div class="row mb-3">
+
+        <!-- ✅ FIXED PRIORITY -->
+        <div class="col-md-6">
+          <label class="form-label">Priority</label>
+          <select name="priority" class="form-select" required>
+            <option value="low">General</option>
+            <option value="medium">Information</option>
+            <option value="high">Urgent</option>
+          </select>
+        </div>
+
+        <!-- ✅ FIXED AUDIENCE -->
+        <div class="col-md-6">
+          <label class="form-label">Visible To</label>
+          <select name="audience" class="form-select" required>
+            <option value="student">Students</option>
+            <option value="all">All</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="mb-3">
+        <label class="form-label">Notice Description</label>
+        <textarea
+          name="content"
+          rows="6"
+          class="form-control"
+          placeholder="Write the notice details clearly for students..."
+          required
+        ></textarea>
+      </div>
+
+      <!-- INFO -->
+      <div class="note-box mb-4">
+        <i class="bi bi-info-circle-fill"></i>
+        Once published, this notice will be visible to students in their portal.
+      </div>
+
+      <!-- SUBMIT -->
+      <div class="text-end">
+        <button type="submit" class="btn-publish">
+          <i class="bi bi-send-fill"></i> Publish Notice
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

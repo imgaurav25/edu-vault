@@ -1,0 +1,258 @@
+<% layout('teacher/layouts/teacherBoiler') %>
+
+<style>
+  /* ===== PAGE WRAPPER ===== */
+  .page-wrapper{
+    max-width:1000px;
+    margin:80px auto 40px; /* FIX overlap */
+    padding:0 15px;
+  }
+
+  /* ===== HEADER CARD ===== */
+  .form-header{
+    background:linear-gradient(135deg,#4e73df,#1cc88a);
+    padding:30px;
+    border-radius:20px;
+    color:#fff;
+    margin-bottom:30px;
+    box-shadow:0 18px 40px rgba(0,0,0,.18);
+  }
+
+  .form-header h2{
+    font-weight:900;
+    margin-bottom:6px;
+  }
+
+  .form-header p{
+    opacity:.9;
+    margin-bottom:0;
+  }
+
+  /* ===== FORM CARD ===== */
+  .glass-card{
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(12px);
+    border-radius:22px;
+    padding:35px;
+    box-shadow:0 20px 55px rgba(0,0,0,.15);
+    animation:fadeUp .5s ease;
+  }
+
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(30px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  /* ===== INPUTS ===== */
+  .form-control,
+  .form-select{
+    border-radius:14px;
+    padding:12px 14px;
+    border:1px solid #dee2e6;
+    transition:.25s ease;
+  }
+
+  .form-control:focus,
+  .form-select:focus{
+    border-color:#4e73df;
+    box-shadow:0 0 0 .15rem rgba(78,115,223,.25);
+  }
+
+  label{
+    font-weight:600;
+    margin-bottom:6px;
+  }
+
+  /* ===== SECTION TITLE ===== */
+  .section-title{
+    font-weight:800;
+    margin:30px 0 15px;
+    color:#4e73df;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  /* ===== BUTTON ===== */
+  .submit-btn{
+    background:linear-gradient(135deg,#4e73df,#1cc88a);
+    border:none;
+    padding:14px;
+    font-size:17px;
+    font-weight:700;
+    border-radius:16px;
+    transition:.3s ease;
+  }
+
+  .submit-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 30px rgba(78,115,223,.45);
+  }
+</style>
+
+<div class="page-wrapper">
+
+  <!-- ===== HEADER ===== -->
+  <div class="form-header">
+    <h2><i class="bi bi-person-plus-fill"></i> Add New Student</h2>
+    <p>Fill student academic & personal details carefully</p>
+  </div>
+
+  <!-- ===== FORM ===== -->
+  <form action="/admin/teacher/add" method="POST" class="glass-card">
+
+    <!-- BASIC INFO -->
+    <div class="section-title">
+      <i class="bi bi-person-badge-fill"></i> Basic Information
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label>Student ID</label>
+        <input type="text" name="studentId" class="form-control" required>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label>Roll Number</label>
+        <input type="text" name="roll" class="form-control" required>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <label>Student Name</label>
+        <input type="text" name="name" class="form-control" required>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="section-title">
+      <i class="bi bi-telephone-fill"></i> Contact Details
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control">
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Phone</label>
+        <input type="text" name="phone" class="form-control">
+      </div>
+    </div>
+
+
+        <!-- 🔐 LOGIN CREDENTIALS -->
+    <div class="section-title">
+      <i class="bi bi-shield-lock-fill"></i> Login Credentials
+    </div>
+
+    <!-- STUDENT PASSWORD -->
+    <div class="mb-3">
+      <label>Student Password</label>
+      <input
+        type="password"
+        name="password"
+        class="form-control"
+        placeholder="Set student login password"
+        required
+      >
+    </div>
+
+    <!-- PARENT LOGIN -->
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label>Parent Email</label>
+        <input
+          type="email"
+          name="parentEmail"
+          class="form-control"
+          placeholder="Parent login email"
+          required
+        >
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Parent Password</label>
+        <input
+          type="password"
+          name="parentPassword"
+          class="form-control"
+          placeholder="Parent login password"
+          required
+        >
+      </div>
+    </div>
+
+
+    <div class="row">
+  <div class="col-md-6 mb-3">
+    <label>Parent Name</label>
+    <input
+      type="text"
+      name="parentName"
+      class="form-control"
+      placeholder="Parent full name"
+      required
+    >
+  </div>
+</div>
+
+
+    <!-- ACADEMIC -->
+    <div class="section-title">
+      <i class="bi bi-mortarboard-fill"></i> Academic Details
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <label>Department</label>
+        <select name="department" class="form-select">
+          <option>CSE</option>
+          <option>IT</option>
+          <option>ECE</option>
+          <option>EE</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label>Section</label>
+        <select name="section" class="form-select">
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label>Semester</label>
+        <input type="number" name="semester" class="form-control">
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <label>Year</label>
+        <input type="number" name="year" class="form-control">
+      </div>
+    </div>
+
+    <!-- FAMILY -->
+    <div class="section-title">
+      <i class="bi bi-house-fill"></i> Family & Address
+    </div>
+
+    <div class="mb-3">
+      <label>Father Name</label>
+      <input type="text" name="fatherName" class="form-control">
+    </div>
+
+    <div class="mb-4">
+      <label>Address</label>
+      <textarea name="address" rows="3" class="form-control"></textarea>
+    </div>
+
+    <!-- SUBMIT -->
+    <button type="submit" class="btn submit-btn w-100">
+      <i class="bi bi-check-circle-fill"></i> Add Student
+    </button>
+
+  </form>
+</div>

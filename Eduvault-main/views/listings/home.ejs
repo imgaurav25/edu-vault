@@ -1,0 +1,355 @@
+<%- layout('layouts/boilerplate') %>
+
+<style>
+/* ================= THEME ================= */
+:root {
+  --bg: #050814;
+  --bg-soft: #0b214c;
+  --text: #ffffff;
+  --text-soft: rgba(235,240,255,0.88);
+  --text-muted: rgba(235,240,255,0.65);
+  --primary: #6aa3ff;
+  --accent: #ffb703;
+  --glass: rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.18);
+}
+
+[data-theme="light"] {
+  --bg: #f6f8fc;
+  --bg-soft: #e8efff;
+  --text: #0b214c;
+  --text-soft: #444;
+  --text-muted: #666;
+  --glass: rgba(255,255,255,0.85);
+  --border: rgba(0,0,0,0.08);
+}
+
+/* ================= BASE ================= */
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, var(--bg-soft), var(--bg));
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto;
+  transition: background .4s, color .4s;
+}
+
+/* ================= HERO (COMPACT) ================= */
+.hero {
+  padding: 110px 16px 85px;   /* reduced height */
+  text-align: center;
+  max-width: 920px;          /* reduced width */
+  margin: auto;
+}
+
+.hero h1 {
+  font-size: clamp(38px, 5vw, 60px);
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1.12;
+}
+
+.hero p {
+  max-width: 760px;
+  margin: 18px auto 0;
+  font-size: 18.5px;
+  line-height: 1.65;
+  color: var(--text-soft);
+}
+
+/* ================= CTA ================= */
+.cta-btn {
+  margin-top: 26px;
+  display: inline-block;
+  padding: 15px 42px;
+  border-radius: 50px;
+  font-size: 17.5px;
+  font-weight: 800;
+  text-decoration: none;
+  color: #000;
+  background: linear-gradient(135deg, #ffd166, var(--accent));
+  box-shadow: 0 20px 45px rgba(255,183,3,0.45);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 30px 70px rgba(255,183,3,0.6);
+}
+
+/* ================= SECTIONS ================= */
+.section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 65px 20px;
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.section-sub {
+  text-align: center;
+  max-width: 720px;
+  margin: auto;
+  font-size: 17px;
+  color: var(--text-muted);
+}
+
+/* ================= FEATURES ================= */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  gap: 24px;
+  margin-top: 46px;
+}
+
+.feature-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 26px;
+  backdrop-filter: blur(14px);
+}
+
+.feature-card h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.feature-card p {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ================= TRUST ================= */
+.trust {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 22px;
+  margin-top: 40px;
+}
+
+.trust-box {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  text-align: center;
+}
+
+.trust-box h3 {
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 4px;
+  background: linear-gradient(90deg, #fff, var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.trust-box p {
+  font-size: 14.5px;
+  color: var(--text-muted);
+}
+
+/* ================= FOOTER ================= */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 50px 20px 30px;
+}
+
+.footer-grid {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px,1fr));
+  gap: 34px;
+}
+
+.footer-brand h3 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.footer-brand p {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.footer-links h4 {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  display: block;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 7px;
+}
+
+.footer-links a:hover {
+  color: var(--text);
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 32px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.theme-switch {
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 30px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  .hero {
+    padding: 95px 14px 75px;
+  }
+  .hero p {
+    font-size: 17px;
+  }
+}
+</style>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <h1>
+    Seamless Student Management.<br/>
+    From Admissions to Intelligence.
+  </h1>
+
+  <p>
+    EduVault is a unified, AI-ready education ERP that helps institutions manage
+    students, academics, finance, attendance, communication, and analytics —
+    all from a single intelligent platform.
+  </p>
+
+  <a href="/login" class="cta-btn">Explore EduVault 🚀</a>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="section">
+  <h2 class="section-title">Everything Your Institution Needs</h2>
+  <p class="section-sub">
+    One powerful platform to replace fragmented systems.
+  </p>
+
+  <div class="features">
+    <div class="feature-card">
+      <h4>Student Lifecycle</h4>
+      <p>Admissions, attendance, marks, and progression.</p>
+    </div>
+    <div class="feature-card">
+      <h4>Academics</h4>
+      <p>Courses, exams, schedules, faculty tools.</p>
+    </div>
+    <div class="feature-card">
+      <h4>Finance</h4>
+      <p>Fees, receipts, dues, compliance reports.</p>
+    </div>
+    <div class="feature-card">
+      <h4>AI Analytics</h4>
+      <p>Insights, alerts, decision intelligence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRUST ================= -->
+<section class="section">
+  <h2 class="section-title">Built for Scale & Trust</h2>
+
+  <div class="trust">
+    <div class="trust-box">
+      <h3>50+</h3>
+      <p>Institutions</p>
+    </div>
+    <div class="trust-box">
+      <h3>10K+</h3>
+      <p>Students Managed</p>
+    </div>
+    <div class="trust-box">
+      <h3>99.9%</h3>
+      <p>Accuracy</p>
+    </div>
+    <div class="trust-box">
+      <h3>24/7</h3>
+      <p>Access</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>EduVault ERP</h3>
+      <p>Intelligent infrastructure for modern education.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Product</h4>
+      <a href="/features">Features</a>
+      <a href="/mission">Mission</a>
+      <a href="/pricing">Pricing</a>
+    </div>
+
+    <div class="footer-links">
+      <h4>Company</h4>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/faq">FAQ</a>
+    </div>
+
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2025 EduVault. All rights reserved.</span>
+    <!-- <div class="theme-switch" onclick="toggleTheme()">🌗 Theme</div>
+  </div> -->
+</footer>
+
+
+
+<script>
+function toggleTheme(){
+  const root = document.documentElement;
+  const btn = document.getElementById("themeToggleBtn");
+
+  const isLight = root.dataset.theme === "light";
+
+  // toggle theme
+  root.dataset.theme = isLight ? "" : "light";
+
+  // toggle icon
+  btn.textContent = isLight ? "🌙" : "☀️";
+}
+
+// keep correct icon on reload
+document.addEventListener("DOMContentLoaded", () => {
+  const root = document.documentElement;
+  const btn = document.getElementById("themeToggleBtn");
+
+  btn.textContent = root.dataset.theme === "light" ? "☀️" : "🌙";
+});
+</script>

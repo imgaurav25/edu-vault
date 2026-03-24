@@ -1,0 +1,176 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+  body{
+    background:#f4f7fc;
+  }
+
+  /* ===== HEADER ===== */
+  .admin-header{
+    background:linear-gradient(135deg,#4e73df,#1cc88a);
+    padding:30px;
+    border-radius:18px;
+    color:#fff;
+    margin-bottom:35px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .admin-header::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at top right, rgba(255,255,255,.25), transparent 40%),
+      radial-gradient(circle at bottom left, rgba(255,255,255,.18), transparent 45%);
+  }
+
+  .admin-header *{position:relative;z-index:2;}
+
+  .admin-header h2{
+    font-weight:900;
+  }
+
+  /* ===== GRID ===== */
+  .dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:26px;
+  }
+
+  /* ===== CARD ===== */
+  .admin-card{
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(10px);
+    border-radius:20px;
+    padding:28px 24px;
+    box-shadow:0 14px 35px rgba(0,0,0,.1);
+    transition:.3s ease;
+    text-align:center;
+    height:100%;
+    position:relative;
+  }
+
+  .admin-card:hover{
+    transform:translateY(-10px) scale(1.02);
+    box-shadow:0 26px 60px rgba(0,0,0,.18);
+  }
+
+  /* ===== ICON ===== */
+  .admin-icon{
+    width:72px;
+    height:72px;
+    margin:0 auto 16px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:34px;
+    color:#fff;
+  }
+
+  .bg-blue{background:#4e73df;}
+  .bg-green{background:#1cc88a;}
+  .bg-yellow{background:#f6c23e;}
+  .bg-purple{background:#6f42c1;}
+  .bg-red{background:#e74a3b;}
+
+  .admin-card h5{
+    font-weight:800;
+    margin-bottom:6px;
+  }
+
+  .admin-card p{
+    font-size:14px;
+    color:#6c757d;
+    margin-bottom:0;
+  }
+
+  /* ===== LINK RESET ===== */
+  .card-link{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+  }
+
+  /* ===== FOOT NOTE ===== */
+  .admin-foot{
+    margin-top:40px;
+    text-align:center;
+    font-size:13px;
+    color:#868e96;
+  }
+</style>
+
+<!-- ===== HEADER ===== -->
+<div class="admin-header">
+  <h2><i class="bi bi-speedometer2"></i> Admin Dashboard</h2>
+  <p class="mb-0 opacity-90">
+    Central control panel to manage students, attendance & academics
+  </p>
+</div>
+
+<!-- ===== DASHBOARD GRID ===== -->
+<div class="dashboard-grid">
+
+  <!-- MANAGE STUDENTS -->
+  <a href="/admin/teacher" class="card-link">
+    <div class="admin-card">
+      <div class="admin-icon bg-blue">
+        <i class="bi bi-people-fill"></i>
+      </div>
+      <h5>Manage Students</h5>
+      <p>View, edit, update and manage all registered students.</p>
+    </div>
+  </a>
+
+  <!-- ADD STUDENT -->
+  <a href="/admin/teacher/add" class="card-link">
+    <div class="admin-card">
+      <div class="admin-icon bg-green">
+        <i class="bi bi-person-plus-fill"></i>
+      </div>
+      <h5>Add Student</h5>
+      <p>Register a new student into the institution system.</p>
+    </div>
+  </a>
+
+  <!-- ATTENDANCE -->
+  <a href="/teacher/attendance" class="card-link">
+    <div class="admin-card">
+      <div class="admin-icon bg-yellow">
+        <i class="bi bi-calendar-check-fill"></i>
+      </div>
+      <h5>Attendance Panel</h5>
+      <p>Take daily attendance and track student presence.</p>
+    </div>
+  </a>
+
+  <!-- RESULTS -->
+  <a href="/teacher/results" class="card-link">
+    <div class="admin-card">
+      <div class="admin-icon bg-purple">
+        <i class="bi bi-bar-chart-fill"></i>
+      </div>
+      <h5>Results Management</h5>
+      <p>Upload and manage student examination results.</p>
+    </div>
+  </a>
+
+  <!-- NOTICES (fixed route: points to admin/teacher notices) -->
+  <a href="/admin/teacher/notices" class="card-link">
+    <div class="admin-card">
+      <div class="admin-icon bg-red">
+        <i class="bi bi-megaphone-fill"></i>
+      </div>
+      <h5>Notice Board</h5>
+      <p>Create and publish notices for students & faculty.</p>
+    </div>
+  </a>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="admin-foot">
+  © <%= new Date().getFullYear() %> EduVault ERP · Secure · Scalable · Smart
+</div>

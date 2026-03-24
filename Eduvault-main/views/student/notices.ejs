@@ -1,0 +1,193 @@
+<% layout('student/layouts/studentBoiler') %>
+<% active = "notices" %>
+<% title = "Notice Board" %>
+
+<style>
+  body { background:#f5f7fb; }
+
+  /* ===== HEADER ===== */
+  .notice-header {
+    background: linear-gradient(135deg,#4e73df,#1cc88a);
+    padding: 28px;
+    border-radius: 20px;
+    color: #fff;
+    margin-bottom: 32px;
+  }
+
+  .notice-header h3 {
+    font-weight: 800;
+  }
+
+  /* ===== NOTICE CARD ===== */
+  .notice-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(0,0,0,.08);
+    margin-bottom: 26px;
+    overflow: hidden;
+    transition: .3s ease;
+  }
+
+  .notice-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 48px rgba(0,0,0,.18);
+  }
+
+  /* ===== CARD HEADER ===== */
+  .notice-top {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid #f1f3f5;
+  }
+
+  .notice-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #212529;
+  }
+
+  .badge-high { background:#e74a3b; }
+  .badge-info { background:#36b9cc; }
+  .badge-normal { background:#1cc88a; }
+
+  .priority-badge {
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    padding:4px 12px;
+    border-radius:20px;
+    white-space:nowrap;
+  }
+
+  /* ===== META ===== */
+  .notice-meta {
+    padding: 0 24px 14px;
+    font-size: 13px;
+    color: #6c757d;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  /* ===== CONTENT ===== */
+  .notice-body {
+    padding: 0 24px 20px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #495057;
+  }
+
+  /* ===== ACTIONS ===== */
+  .notice-actions {
+    padding: 16px 24px;
+    background: #f8f9fc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .btn-pdf {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .btn-pdf:hover {
+    background: #bb2d3b;
+    color: #fff;
+  }
+
+  /* ===== EMPTY ===== */
+  .empty-box {
+    background:#fff;
+    padding:50px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+  }
+
+  .empty-box i {
+    font-size:64px;
+    color:#adb5bd;
+  }
+</style>
+
+<!-- ===== HEADER ===== -->
+<div class="notice-header">
+  <h3><i class="bi bi-megaphone-fill"></i> Notice Board</h3>
+  <p class="mb-0 opacity-90">Official announcements & academic updates</p>
+</div>
+
+<!-- ===== EMPTY STATE ===== -->
+<% if(notices.length === 0){ %>
+  <div class="empty-box">
+    <i class="bi bi-bell-slash"></i>
+    <h5 class="mt-3">No Notices Available</h5>
+    <p class="text-muted">You’re all caught up for now.</p>
+  </div>
+<% } %>
+
+<!-- ===== NOTICE LIST ===== -->
+<% notices.forEach(n => { 
+     let p = (n.priority || "normal").toLowerCase();
+%>
+
+<div class="notice-card">
+
+  <!-- HEADER -->
+  <div class="notice-top">
+    <div class="notice-title">
+      <i class="bi bi-file-earmark-text-fill me-1"></i>
+      <%= n.title || "Notice" %>
+    </div>
+
+    <span class="priority-badge 
+      <%= p === 'high' ? 'badge-high' : p === 'info' ? 'badge-info' : 'badge-normal' %>">
+      <%= p === 'high' ? 'URGENT' : p === 'info' ? 'INFO' : 'GENERAL' %>
+    </span>
+  </div>
+
+  <!-- META -->
+  <div class="notice-meta">
+    <span><i class="bi bi-calendar-event"></i> 
+      <%= n.date ? new Date(n.date).toLocaleDateString() : "—" %>
+    </span>
+    <span><i class="bi bi-person-circle"></i> Admin Office</span>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="notice-body">
+    <%= n.content || n.description || "No details provided." %>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="notice-actions">
+    <span class="text-muted small">
+      Reference ID: <strong><%= n._id %></strong>
+    </span>
+
+    <!-- <a 
+      href="/student/notice/<%= n._id %>/pdf" 
+      class="btn-pdf" 
+      target="_blank"
+    >
+      <i class="bi bi-file-earmark-pdf-fill"></i>
+      Download PDF
+    </a> -->
+  </div>
+
+</div>
+
+<% }) %>

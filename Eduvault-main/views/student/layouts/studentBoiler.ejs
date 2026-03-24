@@ -1,0 +1,109 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title || "Student Portal" %></title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- 🔥 REQUIRED FOR ALL ICONS (EMAIL, PHONE, ETC.) -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    rel="stylesheet"
+  />
+
+  <style>
+    body {
+      overflow-x: hidden;
+    }
+
+    /* Left Sidebar */
+    .student-sidebar {
+      width: 240px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      background: #1e1e2d;
+      color: #fff;
+      padding-top: 20px;
+    }
+
+    .student-sidebar h4 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
+
+    .student-sidebar a {
+      display: block;
+      padding: 12px 20px;
+      color: #cfd1d4;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .student-sidebar a:hover,
+    .student-sidebar .active {
+      background: #4b4b63;
+      color: #fff;
+    }
+
+    /* Main Content */
+    .student-content {
+      margin-left: 250px;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LEFT SIDEBAR -->
+  <div class="student-sidebar">
+    <h4>Student Panel</h4>
+
+    <a href="/student/dashboard/<%= student._id %>" class="<%= active === 'dashboard' ? 'active' : '' %>">
+      📊 Dashboard
+    </a>
+
+    <a href="/student/fees/<%= student._id %>" class="<%= active === 'fees' ? 'active' : '' %>">
+      💰 My Fees
+    </a>
+
+    <a href="/student/attendance/<%= student._id %>" class="<%= active === 'attendance' ? 'active' : '' %>">
+      📝 Attendance
+    </a>
+
+    <a href="/student/results/<%= student._id %>" class="<%= active === 'results' ? 'active' : '' %>">
+      📘 Results
+    </a>
+
+    <a href="/student/notices/<%= student._id %>" class="<%= active === 'notices' ? 'active' : '' %>">
+  📢 Notices
+</a>
+
+
+    <a href="/student/profile/<%= student._id %>" class="<%= active === 'profile' ? 'active' : '' %>">
+      👤 Profile
+    </a>
+
+    <a href="/login">🚪 Logout</a>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="student-content">
+    <%- body %>
+  </div>
+
+</body>
+</html>
+

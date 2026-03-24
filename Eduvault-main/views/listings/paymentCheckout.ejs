@@ -1,0 +1,91 @@
+<% layout('layouts/boilerplate') %>
+
+<section class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card shadow-lg p-4 rounded-4">
+        <h3 class="text-center mb-4 fw-bold">Confirm & Pay</h3>
+
+        <p><strong>Student ID:</strong> <%= studentId %></p>
+        <p><strong>Name:</strong> <%= studentName %></p>
+        <p><strong>Email:</strong> <%= studentEmail %></p>
+        <p><strong>Phone:</strong> <%= studentPhone %></p>
+        <p><strong>Fee Type:</strong> <%= feeType %></p>
+        <p class="fw-bold"><strong>Amount:</strong> ₹ <%= amount %></p>
+
+        <button id="rzp-button" class="btn btn-success w-100 py-2 mt-3">
+          Pay Now 💳
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+document.getElementById("rzp-button").onclick = async function () {
+
+  // 📌 Create Order from Backend
+  const orderData = await fetch("/create-order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ amount: <%= amount %> })
+  }).then(res => res.json());
+
+  if (!orderData.success) {
+    alert("❌ Order Creation Failed!");
+    return;
+  }
+
+  // 💳 Razorpay Options
+  const options = {
+    key: "<%= key_id %>",
+    amount: orderData.order.amount,
+    currency: "INR",
+    name: "EduVault ERP",
+    description: "<%= feeType %> Payment",
+    order_id: orderData.order.id,
+
+    handler: async function (response) {
+
+      alert("🎉 Payment Successful!");
+
+      // 📌 Send Verified Data to Backend
+      const result = await fetch("/payment-success", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          razorpay_payment_id: response.razorpay_payment_id,
+          razorpay_order_id: response.razorpay_order_id,
+          razorpay_signature: response.razorpay_signature,
+
+          // 👇 FIXED VALUES — now EJS sends actual values
+          studentId: "<%= studentId %>",
+          studentName: "<%= studentName %>",
+          studentEmail: "<%= studentEmail %>",
+          studentPhone: "<%= studentPhone %>",
+          feeType: "<%= feeType %>",
+          amount: <%= amount %> // sent as NUMBER, not string
+        })
+      });
+
+      const resData = await result.json();
+      alert(resData.message);
+    },
+
+    prefill: {
+      name: "<%= studentName %>",
+      email: "<%= studentEmail %>",
+      contact: "<%= studentPhone %>"
+    },
+
+    theme: { color: "#0d6efd" }
+  };
+
+  new Razorpay(options).open();
+};
+</script>

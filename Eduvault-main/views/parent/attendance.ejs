@@ -1,0 +1,129 @@
+<% layout('parent/layouts/parentBoiler') %>
+<% active = "attendance" %>
+<% title = "Child Attendance" %>
+
+<style>
+  body { background:#f5f7fb; }
+
+  /* HEADER */
+  .page-header{
+    background:linear-gradient(135deg,#6f42c1,#36b9cc);
+    padding:24px;
+    border-radius:16px;
+    color:#fff;
+    margin-bottom:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+
+  .page-header h3{
+    margin:0;
+    font-weight:700;
+  }
+
+  .student-badge{
+    background:rgba(255,255,255,.15);
+    padding:8px 14px;
+    border-radius:12px;
+    font-weight:600;
+  }
+
+  /* CARD */
+  .attendance-card{
+    background:#fff;
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+  }
+
+  table th{
+    background:#f8f9fc;
+    font-weight:700;
+    font-size:14px;
+  }
+
+  table td{
+    vertical-align:middle;
+    font-weight:600;
+  }
+
+  /* PROGRESS BAR */
+  .progress{
+    height:10px;
+    border-radius:8px;
+    background:#e9ecef;
+  }
+
+  .progress-bar{
+    border-radius:8px;
+  }
+
+  .bg-safe{ background:#1cc88a; }
+  .bg-warn{ background:#f6c23e; }
+  .bg-danger{ background:#e74a3b; }
+
+  .percent-text{
+    font-size:13px;
+    font-weight:700;
+  }
+
+  @media(max-width:576px){
+    .page-header{gap:12px;}
+  }
+</style>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div>
+    <h3><i class="bi bi-calendar2-week"></i> Attendance Report</h3>
+    <p class="mb-0 opacity-90">
+      Subject-wise attendance of your child
+    </p>
+  </div>
+
+  <!-- STUDENT INFO -->
+  <div class="student-badge">
+    <i class="bi bi-person-circle"></i>
+    <%= student.name %> |
+    Roll: <%= student.roll %>
+  </div>
+</div>
+
+<!-- TABLE CARD -->
+<div class="attendance-card">
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Present</th>
+        <th>Total</th>
+        <th style="width:35%">Attendance</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% attendance.forEach(a => {
+        let percent = a.total === 0 ? 0 : Math.round((a.present / a.total) * 100);
+        let barClass = percent >= 75 ? "bg-safe" : percent >= 50 ? "bg-warn" : "bg-danger";
+      %>
+
+      <tr>
+        <td><strong><%= a.subject %></strong></td>
+        <td><%= a.present %></td>
+        <td><%= a.total %></td>
+        <td>
+          <div class="progress mb-1">
+            <div class="progress-bar <%= barClass %>"
+                 style="width:<%= percent %>%">
+            </div>
+          </div>
+          <span class="percent-text"><%= percent %>%</span>
+        </td>
+      </tr>
+
+      <% }) %>
+    </tbody>
+  </table>
+</div>

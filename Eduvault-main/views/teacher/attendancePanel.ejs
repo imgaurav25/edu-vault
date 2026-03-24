@@ -1,0 +1,242 @@
+<% layout('teacher/layouts/teacherBoiler') -%>
+<% title = "Take Attendance" %>
+
+<style>
+  /* ===== PAGE WRAP ===== */
+  .attendance-wrap {
+    max-width: 1100px;
+    margin: auto;
+  }
+
+  /* ===== HEADER ===== */
+  .att-header {
+    background:
+      linear-gradient(135deg, #4e73df, #1cc88a);
+    padding: 30px 32px;
+    border-radius: 22px;
+    color: #fff;
+    margin-bottom: 30px;
+    box-shadow: 0 25px 60px rgba(0,0,0,.25);
+  }
+
+  .att-header h3 {
+    font-weight: 900;
+    margin-bottom: 6px;
+  }
+
+  .att-header p {
+    opacity: .9;
+    margin: 0;
+  }
+
+  /* ===== CARD ===== */
+  .att-card {
+    background: #ffffff;
+    padding: 34px;
+    border-radius: 24px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.12);
+  }
+
+  /* ===== FORM TOP ===== */
+  .att-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 30px;
+  }
+
+  .att-card label {
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 6px;
+  }
+
+  .att-card .form-control,
+  .att-card .form-select {
+    border-radius: 14px;
+    padding: 12px 14px;
+    border: 1px solid #dce1e8;
+    font-size: 15px;
+  }
+
+  .att-card .form-control:focus,
+  .att-card .form-select:focus {
+    border-color: #4e73df;
+    box-shadow: 0 0 0 4px rgba(78,115,223,.15);
+  }
+
+  /* ===== LIST ===== */
+  .student-list {
+    max-height: 480px;
+    overflow-y: auto;
+    padding-right: 6px;
+  }
+
+  /* ===== STUDENT ROW ===== */
+  .student-item {
+    background: #f8f9fc;
+    padding: 16px 18px;
+    border-radius: 18px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 6px solid #4e73df;
+    transition: .25s;
+  }
+
+  .student-item:hover {
+    transform: translateX(4px);
+    background: #eef2ff;
+  }
+
+  .student-name {
+    font-weight: 800;
+    font-size: 16px;
+    color: #0b214c;
+  }
+
+  .student-meta {
+    font-size: 13px;
+    color: #6c757d;
+  }
+
+  /* ===== TOGGLE ===== */
+  .toggle-btn {
+    width: 110px;
+    border: none;
+    padding: 10px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 14px;
+    transition: .25s;
+  }
+
+  .present {
+    background: linear-gradient(135deg, #1cc88a, #17a673);
+    color: white;
+    box-shadow: 0 0 14px rgba(28, 200, 138, 0.5);
+  }
+
+  .absent {
+    background: linear-gradient(135deg, #e74a3b, #be2617);
+    color: white;
+    box-shadow: 0 0 14px rgba(231, 74, 59, 0.5);
+  }
+
+  .toggle-btn:hover {
+    transform: scale(1.07);
+  }
+
+  /* ===== SAVE BUTTON ===== */
+  .save-btn {
+    margin-top: 28px;
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    border: none;
+    padding: 14px;
+    font-weight: 900;
+    letter-spacing: .4px;
+    border-radius: 18px;
+    transition: .3s;
+  }
+
+  .save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(78,115,223,.45);
+  }
+</style>
+
+<div class="attendance-wrap">
+
+  <!-- HEADER -->
+  <div class="att-header">
+    <h3><i class="bi bi-clipboard-check"></i> Take Attendance</h3>
+    <p>Mark attendance smoothly and focus on teaching, not paperwork</p>
+  </div>
+
+  <!-- CARD -->
+  <div class="att-card">
+
+    <form action="/teacher/attendance/save" method="POST">
+
+      <!-- TOP -->
+      <div class="att-top">
+
+        <div>
+          <label>Select Subject</label>
+          <select name="subject" class="form-select" required>
+            <option disabled selected>-- Choose Subject --</option>
+            <% subjects.forEach(sub => { %>
+              <option value="<%= sub %>"><%= sub %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div>
+          <label>Select Date</label>
+          <input type="date" name="date" class="form-control" required>
+        </div>
+
+      </div>
+
+      <!-- LIST -->
+      <h5 class="fw-bold mb-3">Student Attendance</h5>
+
+      <div class="student-list">
+
+        <% students.forEach(s => { %>
+          <div class="student-item">
+
+            <div>
+              <div class="student-name"><%= s.name %></div>
+              <div class="student-meta">
+                Roll: <%= s.roll %> · <%= s.department %> · Section <%= s.section %>
+              </div>
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                class="d-none present-checkbox"
+                name="presentStudents"
+                value="<%= s.roll %>"
+              />
+
+              <button type="button" class="toggle-btn absent" onclick="togglePresent(this)">
+                Absent
+              </button>
+            </div>
+
+          </div>
+        <% }) %>
+
+      </div>
+
+      <button class="btn save-btn w-100">
+        Save Attendance
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+<script>
+  function togglePresent(btn) {
+    const checkbox = btn.previousElementSibling;
+
+    checkbox.checked = !checkbox.checked;
+
+    if (checkbox.checked) {
+      btn.innerText = "Present";
+      btn.classList.remove("absent");
+      btn.classList.add("present");
+    } else {
+      btn.innerText = "Absent";
+      btn.classList.remove("present");
+      btn.classList.add("absent");
+    }
+  }
+</script>

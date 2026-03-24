@@ -1,0 +1,212 @@
+<!-- <% layout('student/layouts/studentBoiler') %>
+<% active = "dashboard" %>
+<% title = "Dashboard" %>
+
+<h3>Welcome, <%= student.name %> 👋</h3>
+
+<div class="row mt-3">
+
+  <div class="col-md-3">
+    <div class="card shadow-sm p-3">
+      <h6>Fees Paid</h6>
+      <h4>₹<%= totalPaid %></h4>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card shadow-sm p-3">
+      <h6>Fees Due</h6>
+      <h4>₹<%= totalDue %></h4>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card shadow-sm p-3">
+      <h6>Attendance</h6>
+      <h4><%= attendancePercent %>%</h4>
+      <small>Present: <%= totalPresent %> / <%= totalClasses %></small>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card shadow-sm p-3">
+      <h6>Rank</h6>
+      <h4><%= studentRank %> / <%= totalStudents %></h4>
+    </div>
+  </div>
+
+</div> -->
+
+
+
+<% layout('student/layouts/studentBoiler') %>
+<% active = "dashboard" %>
+<% title = "Dashboard" %>
+
+<style>
+  body{background:#f5f7fb;}
+
+  .welcome-box{
+    background:linear-gradient(135deg,#4e73df,#1cc88a);
+    border-radius:20px;
+    padding:26px;
+    color:#fff;
+    margin-bottom:30px;
+  }
+
+  .welcome-box h3{
+    font-weight:800;
+    margin-bottom:6px;
+  }
+
+  .welcome-box p{
+    opacity:.9;
+    margin:0;
+  }
+
+  .stat-card{
+    border:none;
+    border-radius:18px;
+    padding:22px;
+    color:#fff;
+    height:100%;
+    box-shadow:0 12px 30px rgba(0,0,0,.15);
+    transition:.3s ease;
+  }
+
+  .stat-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 45px rgba(0,0,0,.25);
+  }
+
+  .stat-icon{
+    width:52px;
+    height:52px;
+    border-radius:14px;
+    background:rgba(255,255,255,.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    margin-bottom:14px;
+  }
+
+  .stat-title{
+    font-size:14px;
+    opacity:.9;
+    font-weight:600;
+  }
+
+  .stat-value{
+    font-size:30px;
+    font-weight:900;
+    line-height:1.1;
+  }
+
+  .stat-sub{
+    font-size:13px;
+    opacity:.85;
+  }
+
+  .bg-fees-paid{background:linear-gradient(135deg,#1cc88a,#17a673);}
+  .bg-fees-due{background:linear-gradient(135deg,#e74a3b,#be2617);}
+  .bg-attendance{background:linear-gradient(135deg,#36b9cc,#258391);}
+  .bg-rank{background:linear-gradient(135deg,#6f42c1,#59339d);}
+</style>
+
+<!-- WELCOME -->
+<div class="welcome-box">
+  <h3>Welcome, <%= student.name %> 👋</h3>
+  <p>Here’s a quick overview of your academic performance</p>
+</div>
+
+<!-- STATS -->
+<div class="row g-4">
+
+  <!-- FEES PAID -->
+  <div class="col-xl-3 col-md-6">
+    <div class="stat-card bg-fees-paid">
+      <div class="stat-icon">
+        <i class="bi bi-cash-stack"></i>
+      </div>
+      <div class="stat-title">Fees Paid</div>
+      <div class="stat-value">₹<%= totalPaid %></div>
+      <div class="stat-sub">Successfully completed</div>
+    </div>
+  </div>
+
+  <!-- FEES DUE -->
+  <div class="col-xl-3 col-md-6">
+    <div class="stat-card bg-fees-due">
+      <div class="stat-icon">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <div class="stat-title">Fees Due</div>
+      <div class="stat-value">₹<%= totalDue %></div>
+      <div class="stat-sub">Pending payment</div>
+    </div>
+  </div>
+
+  <!-- ATTENDANCE -->
+  <div class="col-xl-3 col-md-6">
+    <div class="stat-card bg-attendance">
+      <div class="stat-icon">
+        <i class="bi bi-calendar-check-fill"></i>
+      </div>
+      <div class="stat-title">Attendance</div>
+      <div class="stat-value"><%= attendancePercent %>%</div>
+      <div class="stat-sub">
+        Present: <%= totalPresent %> / <%= totalClasses %>
+      </div>
+    </div>
+  </div>
+
+  <!-- RANK -->
+  <div class="col-xl-3 col-md-6">
+    <div class="stat-card bg-rank">
+      <div class="stat-icon">
+        <i class="bi bi-trophy-fill"></i>
+      </div>
+      <div class="stat-title">Class Rank</div>
+      <div class="stat-value"><%= studentRank %> / <%= totalStudents %></div>
+      <div class="stat-sub">Department & Section</div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- NOTICE BOARD -->
+<div class="mt-5">
+  <h4 class="fw-bold mb-3">📢 Latest Notices</h4>
+
+  <% if (notices && notices.length > 0) { %>
+    <div class="list-group shadow-sm rounded-4 overflow-hidden">
+      <% notices.forEach(n => { %>
+        <div class="list-group-item p-4">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <h6 class="fw-bold mb-0"><%= n.title %></h6>
+            <span class="badge 
+              <%= n.priority === 'high' ? 'bg-danger' : 
+                  n.priority === 'medium' ? 'bg-warning text-dark' : 'bg-success' %>">
+              <%= n.priority %>
+            </span>
+          </div>
+
+          <p class="mb-1 text-muted"><%= n.content %></p>
+
+          <small class="text-secondary">
+            <i class="bi bi-clock"></i>
+            <%= new Date(n.createdAt).toLocaleString() %>
+          </small>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <div class="alert alert-info">
+      No notices available at the moment.
+    </div>
+  <% } %>
+</div>
+

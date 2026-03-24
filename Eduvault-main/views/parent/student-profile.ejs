@@ -1,0 +1,201 @@
+<% layout('parent/layouts/parentBoiler') %>
+<% active = "student" %>
+<% title = "Student Profile" %>
+
+<style>
+  body{background:#f5f7fb;}
+
+  /* ===== HERO ===== */
+  .profile-hero{
+    position:relative;
+    background:linear-gradient(135deg,#6f42c1,#36b9cc);
+    border-radius:24px;
+    padding:46px 30px 95px;
+    color:#fff;
+    text-align:center;
+    overflow:hidden;
+  }
+
+  .profile-hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at top right, rgba(255,255,255,.25), transparent 40%),
+      radial-gradient(circle at bottom left, rgba(255,255,255,.18), transparent 45%);
+  }
+
+  .profile-hero *{position:relative;z-index:2;}
+
+  /* ===== AVATAR ===== */
+  .avatar-wrap{
+    margin-top:-75px;
+    display:flex;
+    justify-content:center;
+    position:relative;
+    z-index:5;
+  }
+
+  .profile-avatar{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    border:6px solid #fff;
+    object-fit:cover;
+    background:#fff;
+    box-shadow:
+      0 18px 40px rgba(0,0,0,.28),
+      0 0 0 6px rgba(111,66,193,.18);
+  }
+
+  /* ===== READ ONLY BADGE ===== */
+  .readonly-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(8px);
+    padding:6px 16px;
+    border-radius:22px;
+    font-size:13px;
+    font-weight:600;
+    margin-top:10px;
+  }
+
+  /* ===== NAME ===== */
+  .profile-name{
+    margin-top:14px;
+    text-align:center;
+  }
+
+  .profile-name h4{
+    font-weight:800;
+    margin-bottom:2px;
+  }
+
+  .profile-name small{
+    color:#6c757d;
+    font-weight:600;
+  }
+
+  /* ===== GRID ===== */
+  .profile-grid{
+    margin-top:38px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:22px;
+  }
+
+  .profile-card{
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(12px);
+    border-radius:20px;
+    padding:24px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    box-shadow:0 12px 30px rgba(0,0,0,.1);
+  }
+
+  .icon-box{
+    width:56px;
+    height:56px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    color:#fff;
+    flex-shrink:0;
+  }
+
+  .blue{background:#4e73df;}
+  .green{background:#1cc88a;}
+  .purple{background:#6f42c1;}
+  .orange{background:#fd7e14;}
+  .dark{background:#212529;}
+
+  .label{
+    font-size:12px;
+    letter-spacing:.6px;
+    font-weight:700;
+    color:#868e96;
+  }
+
+  .value{
+    font-size:17px;
+    font-weight:800;
+    color:#212529;
+    line-height:1.3;
+    word-break: break-all;
+  }
+</style>
+
+<!-- HERO -->
+<div class="profile-hero">
+  <h2 class="fw-bold mb-1">Student Profile</h2>
+  <p class="opacity-90 mb-2">Academic identity of your child</p>
+  <span class="readonly-badge">
+    <i class="bi bi-shield-lock-fill"></i> Read-Only View
+  </span>
+</div>
+
+<!-- AVATAR -->
+<div class="avatar-wrap">
+  <img
+    src="<%= student.photo || '/images/default-user.png' %>"
+    class="profile-avatar"
+    alt="Student Photo"
+  />
+</div>
+
+<!-- NAME -->
+<div class="profile-name">
+  <h4><%= student.name %></h4>
+  <small>Roll No · <%= student.roll %></small>
+</div>
+
+<!-- DETAILS -->
+<div class="profile-grid">
+
+  <div class="profile-card">
+    <div class="icon-box blue"><i class="bi bi-envelope-at-fill"></i></div>
+    <div>
+      <div class="label">EMAIL</div>
+      <div class="value"><%= student.email %></div>
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <div class="icon-box green"><i class="bi bi-telephone-fill"></i></div>
+    <div>
+      <div class="label">PHONE</div>
+      <div class="value"><%= student.phone %></div>
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <div class="icon-box purple"><i class="bi bi-building-fill"></i></div>
+    <div>
+      <div class="label">DEPARTMENT</div>
+      <div class="value"><%= student.department %></div>
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <div class="icon-box orange"><i class="bi bi-people-fill"></i></div>
+    <div>
+      <div class="label">SECTION</div>
+      <div class="value"><%= student.section %></div>
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <div class="icon-box dark"><i class="bi bi-journal-bookmark-fill"></i></div>
+    <div>
+      <div class="label">SEMESTER</div>
+      <div class="value"><%= student.semester %></div>
+    </div>
+  </div>
+
+</div>

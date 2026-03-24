@@ -1,0 +1,251 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+  /* ===== HERO ===== */
+  .about-hero {
+    min-height: 70vh;
+    background:
+      radial-gradient(circle at top right, rgba(78,115,223,.25), transparent 40%),
+      radial-gradient(circle at bottom left, rgba(28,200,138,.25), transparent 45%),
+      linear-gradient(135deg, #0b214c, #061329);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding: 40px 20px;
+  }
+
+  .about-hero h1 {
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: .6px;
+    margin-bottom: 16px;
+  }
+
+  .about-hero p {
+    max-width: 760px;
+    font-size: 18px;
+    opacity: .92;
+    line-height: 1.7;
+  }
+
+  /* ===== STORY CARD ===== */
+  .story-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 50px 40px;
+    box-shadow: 0 40px 100px rgba(0,0,0,.12);
+    margin-top: -100px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .story-card h2 {
+    font-weight: 900;
+    color: #0b214c;
+    margin-bottom: 16px;
+  }
+
+  .story-card p {
+    color: #495057;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  /* ===== FEATURES GRID ===== */
+  .feature-grid {
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+  }
+
+  /* ===== FEATURE CARD ===== */
+  .feature-card {
+    background: rgba(255,255,255,.97);
+    border-radius: 26px;
+    padding: 36px 30px;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0,0,0,.12);
+    transition: all .4s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-14px) scale(1.04);
+    box-shadow: 0 55px 130px rgba(0,0,0,.25);
+  }
+
+  .feature-icon {
+    width: 88px;
+    height: 88px;
+    margin: 0 auto 22px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: #fff;
+  }
+
+  .blue { background: linear-gradient(135deg, #4e73df, #224abe); }
+  .green { background: linear-gradient(135deg, #1cc88a, #13855c); }
+  .yellow { background: linear-gradient(135deg, #f6c23e, #dda20a); }
+  .purple { background: linear-gradient(135deg, #6f42c1, #59339d); }
+  .red { background: linear-gradient(135deg, #e74a3b, #be2617); }
+  .teal { background: linear-gradient(135deg, #36b9cc, #258391); }
+
+  .feature-card h4 {
+    font-weight: 900;
+    color: #0b214c;
+    margin-bottom: 8px;
+  }
+
+  .feature-card p {
+    font-size: 14px;
+    color: #6c757d;
+    line-height: 1.6;
+  }
+
+  /* ===== FOOT MESSAGE ===== */
+  .about-foot {
+    margin-top: 80px;
+    text-align: center;
+    font-size: 14px;
+    color: #6c757d;
+  }
+</style>
+
+<!-- ===== HERO ===== -->
+<section class="about-hero">
+  <div>
+    <h1>About EduVault</h1>
+    <p>
+      EduVault is not just an ERP.  
+      It is a modern digital backbone designed to transform how educational
+      institutions operate, communicate, and grow.
+    </p>
+  </div>
+</section>
+
+<!-- ===== STORY ===== -->
+<div class="container">
+  <div class="story-card text-center">
+    <h2>Why EduVault Exists</h2>
+    <p class="mt-3">
+      Educational institutions struggle with fragmented systems, manual processes,
+      and poor communication. EduVault was built to solve this.
+      <br><br>
+      We bring academics, administration, finance, and communication into
+      <strong>one intelligent, secure, and beautifully designed platform</strong>
+      that empowers administrators, faculty, students, and parents alike.
+    </p>
+  </div>
+</div>
+
+<!-- ===== FEATURES ===== -->
+<div class="container">
+
+  <div class="feature-grid">
+
+    <div class="feature-card">
+      <div class="feature-icon blue">
+        <i class="bi bi-people-fill"></i>
+      </div>
+      <h4>Student Management</h4>
+      <p>
+        Centralized student records, attendance tracking,
+        academic history, and profile management.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon green">
+        <i class="bi bi-mortarboard-fill"></i>
+      </div>
+      <h4>Academics & Courses</h4>
+      <p>
+        Class schedules, enrollments, exams,
+        results, grading & curriculum planning.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon yellow">
+        <i class="bi bi-currency-rupee"></i>
+      </div>
+      <h4>Fees & Finance</h4>
+      <p>
+        Automated fee tracking, concessions,
+        scholarship handling & due reminders.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon purple">
+        <i class="bi bi-truck"></i>
+      </div>
+      <h4>Hostel & Transport</h4>
+      <p>
+        Hostel allocation, transport routes,
+        digital passes & RFID/QR integrations.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon red">
+        <i class="bi bi-megaphone-fill"></i>
+      </div>
+      <h4>Communication</h4>
+      <p>
+        Real-time notices, alerts,
+        parent-student portals & announcements.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon teal">
+        <i class="bi bi-graph-up-arrow"></i>
+      </div>
+      <h4>Reports & Analytics</h4>
+      <p>
+        AI-powered dashboards to monitor performance,
+        attendance trends & risk indicators.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="about-foot">
+    © <%= new Date().getFullYear() %> EduVault ERP · Designed for the Future of Education
+  </div>
+
+</div>
+
+
+
+
+<script>
+function toggleTheme() {
+  const root = document.documentElement;
+  const btn = document.getElementById("themeToggleBtn");
+
+  const isLight = root.dataset.theme === "light";
+  root.dataset.theme = isLight ? "dark" : "light";
+
+  btn.textContent = isLight ? "🌙" : "☀️";
+  localStorage.setItem("theme", root.dataset.theme);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const root = document.documentElement;
+  const btn = document.getElementById("themeToggleBtn");
+
+  const savedTheme = localStorage.getItem("theme") || "light";
+  root.dataset.theme = savedTheme;
+
+  if (btn) {
+    btn.textContent = savedTheme === "light" ? "☀️" : "🌙";
+  }
+});
+</script>

@@ -1,0 +1,137 @@
+
+<% layout('student/layouts/studentBoiler') %>
+<% active = "attendance" %>
+<% title = "Attendance" %>
+
+<style>
+  body { background:#f5f7fb; }
+
+  /* HEADER */
+  .page-header{
+    background:linear-gradient(135deg,#4e73df,#1cc88a);
+    padding:24px;
+    border-radius:16px;
+    color:#fff;
+    margin-bottom:25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+
+  .page-header h3{
+    margin:0;
+    font-weight:700;
+  }
+
+  .download-btn{
+    background:#fff;
+    color:#4e73df;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    box-shadow:0 6px 18px rgba(0,0,0,.15);
+  }
+
+  .download-btn:hover{
+    background:#eef2ff;
+  }
+
+  /* CARD */
+  .attendance-card{
+    background:#fff;
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+  }
+
+  table th{
+    background:#f8f9fc;
+    font-weight:700;
+    font-size:14px;
+  }
+
+  table td{
+    vertical-align:middle;
+    font-weight:600;
+  }
+
+  /* PROGRESS BAR */
+  .progress{
+    height:10px;
+    border-radius:8px;
+    background:#e9ecef;
+  }
+
+  .progress-bar{
+    border-radius:8px;
+  }
+
+  .bg-safe{ background:#1cc88a; }
+  .bg-warn{ background:#f6c23e; }
+  .bg-danger{ background:#e74a3b; }
+
+  .percent-text{
+    font-size:13px;
+    font-weight:700;
+  }
+
+  @media(max-width:576px){
+    .page-header{gap:12px;}
+  }
+</style>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div>
+    <h3><i class="bi bi-calendar-check"></i> Attendance Report</h3>
+    <p class="mb-0 opacity-90">Analyze your subject-wise attendance</p>
+  </div>
+
+  <!-- DOWNLOAD PDF BUTTON -->
+  <form action="/student/attendance/<%= student._id %>/download-pdf" method="GET">
+    <button class="download-btn">
+      <i class="bi bi-file-earmark-pdf-fill"></i>
+      Download PDF
+    </button>
+  </form>
+</div>
+
+<!-- TABLE CARD -->
+<div class="attendance-card">
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Present</th>
+        <th>Total</th>
+        <th style="width:35%">Attendance</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% attendance.forEach(a => {
+        let percent = a.total === 0 ? 0 : Math.round((a.present / a.total) * 100);
+        let barClass = percent >= 75 ? "bg-safe" : percent >= 50 ? "bg-warn" : "bg-danger";
+      %>
+
+      <tr>
+        <td><strong><%= a.subject %></strong></td>
+        <td><%= a.present %></td>
+        <td><%= a.total %></td>
+        <td>
+          <div class="progress mb-1">
+            <div class="progress-bar <%= barClass %>" style="width:<%= percent %>%"></div>
+          </div>
+          <span class="percent-text"><%= percent %>%</span>
+        </td>
+      </tr>
+
+      <% }) %>
+    </tbody>
+  </table>
+</div>

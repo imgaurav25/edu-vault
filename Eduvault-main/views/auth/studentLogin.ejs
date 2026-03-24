@@ -1,0 +1,38 @@
+<% layout('layouts/boilerplate') %>
+
+<section class="login-container d-flex justify-content-center align-items-center" style="min-height:100vh;">
+  <div class="login-card shadow-lg p-4 rounded-4" style="width:380px;">
+    
+    <h2 class="text-center mb-4 fw-bold">🎓 Student Login</h2>
+
+    <!-- ✅ CORRECT FORM -->
+    <form action="/login" method="POST">
+
+      <!-- IMPORTANT: role -->
+      <input type="hidden" name="role" value="student">
+
+      <!-- EMAIL / USER -->
+      <input
+        type="email"
+        name="user"
+        class="form-control mb-3"
+        placeholder="Enter Student Email"
+        required
+      >
+
+      <!-- PASSWORD -->
+      <input
+        type="password"
+        name="password"
+        class="form-control mb-3"
+        placeholder="Enter Password"
+        required
+      >
+
+      <button class="btn btn-primary w-100 py-2 fw-bold">
+        Login
+      </button>
+    </form>
+
+  </div>
+</section>

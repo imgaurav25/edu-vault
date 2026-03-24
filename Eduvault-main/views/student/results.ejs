@@ -1,0 +1,252 @@
+<% layout('student/layouts/studentBoiler') %>
+<% active = "results" %>
+<% title = "My Results" %>
+
+<style>
+  body{ background:#f4f6fb; }
+
+  /* ===== DOWNLOAD BUTTON ===== */
+.download-result-btn{
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#fff;
+  border:none;
+  padding:12px 22px;
+  border-radius:999px;
+  font-weight:900;
+  letter-spacing:.4px;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 14px 35px rgba(34,197,94,.45);
+  transition:all .3s ease;
+}
+
+.download-result-btn i{
+  font-size:18px;
+}
+
+.download-result-btn:hover{
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:0 22px 55px rgba(34,197,94,.6);
+  background:linear-gradient(135deg,#16a34a,#15803d);
+}
+
+
+  /* ===== HERO ===== */
+  .result-hero{
+    background:linear-gradient(135deg,#4338ca,#06b6d4);
+    padding:36px;
+    border-radius:24px;
+    color:#fff;
+    margin-bottom:40px;
+    box-shadow:0 25px 60px rgba(0,0,0,.25);
+  }
+
+  .result-hero h2{
+    font-weight:900;
+    letter-spacing:.3px;
+  }
+
+  /* ===== SEM CARD ===== */
+  .semester-card{
+    background:#fff;
+    border-radius:22px;
+    padding:26px;
+    margin-bottom:40px;
+    box-shadow:0 18px 45px rgba(0,0,0,.1);
+  }
+
+  /* ===== SUMMARY ===== */
+  .summary-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:18px;
+    margin-bottom:30px;
+  }
+
+  .summary-box{
+    background:linear-gradient(135deg,#f8fafc,#eef2ff);
+    border-radius:18px;
+    padding:18px;
+    display:flex;
+    gap:14px;
+    align-items:center;
+    box-shadow:0 8px 22px rgba(0,0,0,.08);
+  }
+
+  .summary-icon{
+    width:56px;
+    height:56px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    color:#fff;
+  }
+
+  .bg-blue{background:#6366f1;}
+  .bg-green{background:#22c55e;}
+  .bg-purple{background:#8b5cf6;}
+  .bg-orange{background:#f97316;}
+
+  .summary-title{
+    font-size:13px;
+    font-weight:800;
+    color:#6b7280;
+  }
+
+  .summary-value{
+    font-size:22px;
+    font-weight:900;
+    color:#111827;
+  }
+
+  /* ===== TABLE ===== */
+  table th{
+    background:#eef2ff;
+    font-weight:900;
+    font-size:14px;
+    text-transform:uppercase;
+  }
+
+  table td{
+    font-size:15px;
+  }
+
+  .mark-high{color:#22c55e;font-weight:900;}
+  .mark-mid{color:#eab308;font-weight:900;}
+  .mark-low{color:#ef4444;font-weight:900;}
+
+  .badge-pass{
+    background:#22c55e;
+    color:#fff;
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:800;
+  }
+
+  .badge-fail{
+    background:#ef4444;
+    color:#fff;
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:800;
+  }
+
+  .divider{
+    height:1px;
+    background:#e5e7eb;
+    margin:30px 0;
+  }
+
+  
+</style>
+
+<!-- ===== HERO ===== -->
+<div class="result-hero">
+  <h2><i class="bi bi-mortarboard-fill"></i> Academic Results</h2>
+  <p class="opacity-90 mb-0">Complete semester-wise performance & analytics</p>
+</div>
+
+<% if(results.length === 0){ %>
+  <div class="alert alert-info rounded-4 shadow-sm">
+    Results have not been published yet.
+  </div>
+<% } %>
+
+<% results.forEach(r => { %>
+
+<div class="semester-card">
+  <div class="d-flex justify-content-end mb-3">
+  <form action="/student/results/<%= student._id %>/download/<%= r.semester %>" method="GET">
+    <button class="download-result-btn">
+      <i class="bi bi-file-earmark-pdf-fill"></i>
+      Download Result
+    </button>
+  </form>
+</div>
+
+
+  <!-- ===== SUMMARY ===== -->
+  <div class="summary-grid">
+
+
+
+    <div class="summary-box">
+      <div class="summary-icon bg-blue"><i class="bi bi-calendar-check-fill"></i></div>
+      <div>
+        <div class="summary-title">SEMESTER</div>
+        <div class="summary-value">Semester <%= r.semester %></div>
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-icon bg-green"><i class="bi bi-trophy-fill"></i></div>
+      <div>
+        <div class="summary-title">TOTAL MARKS</div>
+        <div class="summary-value"><%= r.totalMarks %></div>
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-icon bg-purple"><i class="bi bi-graph-up-arrow"></i></div>
+      <div>
+        <div class="summary-title">PERCENTAGE</div>
+        <div class="summary-value"><%= r.percentage %>%</div>
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-icon bg-orange"><i class="bi bi-award-fill"></i></div>
+      <div>
+        <div class="summary-title">RESULT STATUS</div>
+        <div class="summary-value"><%= r.status %></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  
+
+
+  <!-- ===== SUBJECT TABLE ===== -->
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Marks</th>
+          <th>Max</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% r.subjects.forEach(s => {
+          let cls = s.marks >= 75 ? "mark-high" : s.marks >= 40 ? "mark-mid" : "mark-low";
+        %>
+        <tr>
+          <td><strong><%= s.subjectName %></strong></td>
+          <td class="<%= cls %>"><%= s.marks %></td>
+          <td><%= s.maxMarks %></td>
+          <td>
+            <% if(s.marks >= 40){ %>
+              <span class="badge-pass">PASS</span>
+            <% } else { %>
+              <span class="badge-fail">FAIL</span>
+            <% } %>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<% }) %>
